@@ -1,9 +1,13 @@
-FROM jwata:debian-openjdk8
+FROM jwata/debian-openjdk8
 
 MAINTAINER Junji Watanabe
 
 # Install requirements
 RUN apt-get install -y wget curl
+
+# Versions
+ENV SCALA_VERSION 2.11.1
+ENV SBT_VERSION 0.13.8
 
 RUN \
   echo 'Installing scala...' && \
@@ -29,5 +33,5 @@ RUN \
   echo 'object Main { def main(args: Array[String]) = println("Dummy") }' > /tmp/sbt-dummy/src/main/scala/Main.scala && \
   cd /tmp/sbt-dummy && sbt run && \
 
-  echo 'removing temporary directory'
+  echo 'removing temporary directory' && \
   rm -rf /tmp/*
